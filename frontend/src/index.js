@@ -1,13 +1,28 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { Provider } from 'react-redux';
-import { store } from './app/store';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import 'bootstrap/dist/css/bootstrap.css';
-import './index.css';
+import React from "react";
+import { createRoot } from "react-dom/client";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouteProvider,
+} from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "./app/store";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import HomePage from "./pages/HomePage";
+import "bootstrap/dist/css/bootstrap.css";
+import "./index.css";
 
-const container = document.getElementById('root');
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<App />}>
+      <Route path="/" element={<HomePage />} />
+    </Route>
+  )
+)
+
+const container = document.getElementById("root");
 const root = createRoot(container);
 
 root.render(
