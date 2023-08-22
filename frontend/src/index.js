@@ -5,12 +5,14 @@ import {
   createRoutesFromElements,
   Route,
   RouteProvider,
+  RouterProvider,
 } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import HomePage from "./pages/HomePage";
+import ProductPage from "./pages/ProductPage";
 import "bootstrap/dist/css/bootstrap.css";
 import "./index.css";
 
@@ -18,6 +20,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route path="/" element={<HomePage />} />
+      <Route path="/product/:id" element={<ProductPage />} />
     </Route>
   )
 )
@@ -27,9 +30,7 @@ const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <RouterProvider router={router}></RouterProvider>
   </React.StrictMode>
 );
 

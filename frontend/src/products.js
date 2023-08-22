@@ -1,5 +1,6 @@
 const products = [
   {
+    _id: "1",
     name: 'Engine Oil Filter',
     image: '/images/engine-oil-filter.jpg',
     description:
@@ -12,6 +13,7 @@ const products = [
     numReviews: 15,
   },
   {
+    _id: 2,
     name: 'Brake Pad Set',
     image: '/images/brake-pad-set.jpg',
     description:
@@ -24,6 +26,7 @@ const products = [
     numReviews: 10,
   },
   {
+    _id: 3,
     name: 'Spark Plug Kit',
     image: '/images/spark-plug-kit.jpg',
     description:
@@ -36,6 +39,7 @@ const products = [
     numReviews: 8,
   },
   {
+    _id: 4,
     name: 'Air Filter Element',
     image: '/images/air-filter-element.jpg',
     description:
@@ -48,6 +52,7 @@ const products = [
     numReviews: 12,
   },
   {
+    _id: 5,
     name: 'Wheel Bearing Assembly',
     image: '/images/wheel-bearing-assembly.jpg',
     description:
@@ -60,6 +65,7 @@ const products = [
     numReviews: 6,
   },
   {
+    _id: 6,
     name: 'Cabin Air Filter',
     image: '/images/cabin-air-filter.jpg',
     description:
