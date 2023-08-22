@@ -8,7 +8,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { Provider } from "react-redux";
-import { store } from "./app/store";
+import store from "./app/store";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import HomePage from "./pages/HomePage";
@@ -18,19 +18,21 @@ import "./index.css";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<App />}>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/product/:id" element={<ProductPage />} />
+    <Route path='/' element={<App />}>
+      <Route index={true} path='/' element={<HomePage />} />
+      <Route path='/product/:id' element={<ProductPage />} />
     </Route>
   )
-)
+);
 
 const container = document.getElementById("root");
 const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router}></RouterProvider>
+    <Provider store={store}>
+      <RouterProvider router={router}></RouterProvider>
+    </Provider>
   </React.StrictMode>
 );
 
