@@ -21,6 +21,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import ProfilePage from "./pages/ProfilePage";
 import AdminRoute from "./components/AdminRoute";
 import OrderListPage from "./pages/admin/OrderListPage";
+import PaymentPage from "./pages/PaymentPage";
 import "bootstrap/dist/css/bootstrap.css";
 import "./index.css";
 import UpdateProfilePage from "./pages/ProfilePage";
@@ -37,12 +38,13 @@ const router = createBrowserRouter(
 
       <Route path='' element={<PrivateRoute />}>
         <Route path='/shipping' element={<ShippingPage />} />
+        <Route path='payment' element={<PaymentPage/>}/>
       <Route path='/profile' element={<ProfilePage />} />
 
       </Route>
 
       <Route path='' element={<AdminRoute />}>
-        <Route path='/orderlist/' element={<OrderListPage />} />
+        <Route path='/admin/orderlist/' element={<OrderListPage />} />
       </Route>
     </Route>
   )
