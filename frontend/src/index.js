@@ -22,6 +22,7 @@ import ProfilePage from "./pages/ProfilePage";
 import AdminRoute from "./components/AdminRoute";
 import OrderListPage from "./pages/admin/OrderListPage";
 import PaymentPage from "./pages/PaymentPage";
+import ProductListPage from "./pages/admin/ProductListPage";
 import "bootstrap/dist/css/bootstrap.css";
 import "./index.css";
 import UpdateProfilePage from "./pages/ProfilePage";
@@ -45,6 +46,7 @@ const router = createBrowserRouter(
 
       <Route path='' element={<AdminRoute />}>
         <Route path='/admin/orderlist/' element={<OrderListPage />} />
+        <Route path='/admin/productList/' element={<ProductListPage />} />
       </Route>
     </Route>
   )

@@ -15,9 +15,11 @@ import { toast } from 'react-toastify';
 const ProductListPage= () => {
   const { pageNumber } = useParams();
 
-  const { data, isLoading, error, refetch } = useGetProductsQuery({
+  const { data: products, isLoading, error, refetch } = useGetProductsQuery({
     pageNumber,
   });
+
+  console.log(products)
 
   const [deleteProduct, { isLoading: loadingDelete }] =
     useDeleteProductMutation();
@@ -80,7 +82,7 @@ const ProductListPage= () => {
               </tr>
             </thead>
             <tbody>
-              {data.products.map((product) => (
+              {products.map((product) => (
                 <tr key={product._id}>
                   <td>{product._id}</td>
                   <td>{product.name}</td>
