@@ -1,10 +1,11 @@
+
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import FormContainer from "../components/FormContainer";
-import { useRegisterMutation } from "../slices/userApiSlice";
+import { useRegisterMutation, useSendVerificationEmailMutation } from "../slices/userApiSlice";
 import { setCredentials } from "../slices/authSlice";
 import { toast } from "react-toastify";
 
@@ -18,6 +19,7 @@ const RegisterPage = () => {
   const navigate = useNavigate();
 
   const [register, { isLoading }] = useRegisterMutation();
+  const [sendVerificationEmail] = useSendVerificationEmailMutation();
 
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -40,6 +42,11 @@ const RegisterPage = () => {
       try {
         const res = await register({ name, email, password }).unwrap();
         dispatch(setCredentials({ ...res }));
+        
+        // Send a verification email after successful registration
+        await sendVerificationEmail();
+        
+        toast.success("Registration successful. Verification email sent.");
         navigate(redirect);
       } catch (err) {
         toast.error(err?.data?.message || err.error);

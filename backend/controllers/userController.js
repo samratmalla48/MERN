@@ -1,6 +1,8 @@
 import asyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
 import generateToken from "../utils/generateToken.js";
+import cryptoRandomString from 'crypto-random-string';
+
 
 // @desc    Auth user/set token
 // route    POST /api/users/auth
@@ -42,21 +44,30 @@ const registerUser = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("User already exists");
   }
+const verificationToken = cryptoRandomString({ length: 64, type: 'url-safe' });
+
+user.verificationToken = verificationToken;
+await user.save();
 
   const user = await User.create({
     name,
     email,
     password,
+    verificationToken,
+    isVerified:false,
   });
+  const verificationLink = `${req.protocol}://${req.get('host')}/verify/${verificationToken}`;
+
 
   if (user) {
     generateToken(res, user._id);
 
-    res.status(200).json({
+    res.status(201).json({
       _id: user._id,
       name: user.name,
       emai: user.email,
       isAdmin: user.isAdmin,
+      isVerified:user.isVerified
     });
   } else {
     res.status(400);

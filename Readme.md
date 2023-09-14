@@ -17,3 +17,6 @@ To Run the Project
 Frontend - React (Redux, Bootstrap)
 Backend - Models, controllers, routes
 Uploads - Image Upload
+
+securesally@gmail.com
+gbmimkmfnvplxnee
