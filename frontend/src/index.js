@@ -27,6 +27,9 @@ import ProductUpdatePage from "./pages/admin/ProductUpdatePage";
 import "bootstrap/dist/css/bootstrap.css";
 import "./index.css";
 import UpdateProfilePage from "./pages/ProfilePage";
+import UserEditPage from "./pages/admin/UserEditPage";
+import AboutUsPage from "./pages/AboutUsPage";
+import UserListPage from "./pages/admin/UserListPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -36,19 +39,21 @@ const router = createBrowserRouter(
       <Route path='/cart' element={<CartPage />} />
       <Route path='/login' element={<LoginPage />} />
       <Route path='/register' element={<RegisterPage />} />
-
+      <Route path='/aboutUs' element={<AboutUsPage />} />
 
       <Route path='' element={<PrivateRoute />}>
         <Route path='/shipping' element={<ShippingPage />} />
-        <Route path='payment' element={<PaymentPage/>}/>
-      <Route path='/profile' element={<ProfilePage />} />
-
+        <Route path='payment' element={<PaymentPage />} />
+        <Route path='/profile' element={<ProfilePage />} />
       </Route>
 
       <Route path='' element={<AdminRoute />}>
         <Route path='/admin/orderlist/' element={<OrderListPage />} />
         <Route path='/admin/productList/' element={<ProductListPage />} />
         <Route path='/admin/product/:id/edit' element={<ProductUpdatePage />} />
+        <Route path='/admin/user/:id/edit' element={<UserEditPage />} />
+        <Route path='/admin/userlist/' element={<UserListPage />} />
+
 
       </Route>
     </Route>
