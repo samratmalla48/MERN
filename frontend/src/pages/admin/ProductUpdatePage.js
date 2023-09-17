@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import {
   useGetProductDetailsQuery,
   useUpdateProductMutation,
-//   useUploadProductImageMutation,
+  useUploadProductImageMutation,
 } from '../../slices/productsApiSlice';
 
 const ProductUpdatePage = () => {
@@ -32,8 +32,8 @@ const ProductUpdatePage = () => {
   const [updateProduct, { isLoading: loadingUpdate }] =
     useUpdateProductMutation();
 
-//   const [uploadProductImage, { isLoading: loadingUpload }] =
-    // useUploadProductImageMutation();
+  const [uploadProductImage, { isLoading: loadingUpload }] =
+    useUploadProductImageMutation();
 
   const navigate = useNavigate();
 
@@ -49,7 +49,7 @@ const ProductUpdatePage = () => {
         category,
         description,
         countInStock,
-      }).unwrap(); 
+      }).unwrap(); // NOTE: here we need to unwrap the Promise to catch any rejection in our catch block
       toast.success('Product updated');
       refetch();
       navigate('/admin/productlist');
@@ -71,15 +71,15 @@ const ProductUpdatePage = () => {
   }, [product]);
 
   const uploadFileHandler = async (e) => {
-    // const formData = new FormData();
-    // formData.append('image', e.target.files[0]);
-    // try {
-    // //   const res = await uploadProductImage(formData).unwrap();
-    //   toast.success(res.message);
-    //   setImage(res.image);
-    // } catch (err) {
-    //   toast.error(err?.data?.message || err.error);
-    // }
+    const formData = new FormData();
+    formData.append('image', e.target.files[0]);
+    try {
+      const res = await uploadProductImage(formData).unwrap();
+      toast.success(res.message);
+      setImage(res.image);
+    } catch (err) {
+      toast.error(err?.data?.message || err.error);
+    }
   };
 
   return (
@@ -129,7 +129,7 @@ const ProductUpdatePage = () => {
                 onChange={uploadFileHandler}
                 type='file'
               ></Form.Control>
-              {/* {loadingUpload && <Loader />} */}
+              {loadingUpload && <Loader />}
             </Form.Group>
 
             <Form.Group controlId='brand'>

@@ -5,7 +5,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { Outlet } from "react-router-dom";
 
-function App() {
+const App = () => {
   return (
     <>
       <Header />
@@ -19,6 +19,6 @@ function App() {
       <ToastContainer></ToastContainer>
     </>
   );
-}
+};
 
 export default App;

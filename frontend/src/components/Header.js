@@ -1,12 +1,20 @@
-import { Navbar, Nav, Container, Badge, NavDropdown } from "react-bootstrap";
+import {
+  Navbar,
+  Nav,
+  Container,
+  Badge,
+  NavDropdown,
+  Button,
+} from "react-bootstrap";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
 import { LinkContainer } from "react-router-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useLogoutMutation } from "../slices/usersApiSlice";
 import { logout } from "../slices/authSlice";
-import SearchBox from './SearchBox';
-
+import SearchBox from "./SearchBox";
+import { useState } from "react";
+import Sidebar from "./Sidebar";
 
 const Header = () => {
   const { cartItems } = useSelector((state) => state.cart);
@@ -25,11 +33,23 @@ const Header = () => {
     }
   };
 
-  console.log(cartItems);
+  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+
+  const handleSidebarToggle = () => {
+    setIsSidebarVisible(!isSidebarVisible);
+  };
+
   return (
     <header>
+      <Sidebar
+        isSidebarVisible={isSidebarVisible}
+        handleSidebarToggle={handleSidebarToggle}
+      />
       <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
         <Container>
+          <Button variant='primary' onClick={handleSidebarToggle}>
+            Toggle sidebar
+          </Button>
           <LinkContainer to='/'>
             <Navbar.Brand>Newcastle Auto Spare Parts</Navbar.Brand>
           </LinkContainer>
@@ -37,7 +57,9 @@ const Header = () => {
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='ms-auto'>
               <SearchBox></SearchBox>
-              <LinkContainer to="/aboutUs"><Nav.Link>About Us</Nav.Link></LinkContainer>
+              <LinkContainer to='/aboutUs'>
+                <Nav.Link>About Us</Nav.Link>
+              </LinkContainer>
               <LinkContainer to='/cart'>
                 <Nav.Link>
                   <FaShoppingCart /> Cart

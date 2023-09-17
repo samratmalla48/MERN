@@ -1,22 +1,21 @@
-import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { Form, Button } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const SearchBox = () => {
   const navigate = useNavigate();
   const { keyword: urlKeyword } = useParams();
 
-  // FIX: uncontrolled input - urlKeyword may be undefined
-  const [keyword, setKeyword] = useState(urlKeyword || '');
+  const [keyword, setKeyword] = useState(urlKeyword || "");
 
   const submitHandler = (e) => {
     e.preventDefault();
     if (keyword) {
       navigate(`/search/${keyword.trim()}`);
-      setKeyword('');
+      setKeyword("");
     } else {
-      navigate('/');
+      navigate("/");
     }
   };
 

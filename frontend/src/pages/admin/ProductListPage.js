@@ -78,6 +78,7 @@ const ProductListPage= () => {
                 <th>PRICE</th>
                 <th>CATEGORY</th>
                 <th>BRAND</th>
+                <th>Stock</th>
                 <th></th>
               </tr>
             </thead>
@@ -89,6 +90,7 @@ const ProductListPage= () => {
                   <td>${product.price}</td>
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
+                  <td>{product.countInStock}</td>
                   <td>
                     <LinkContainer to={`/admin/product/${product._id}/edit`}>
                       <Button variant='light' className='btn-sm mx-2'>
