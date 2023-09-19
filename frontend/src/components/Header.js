@@ -6,7 +6,7 @@ import {
   NavDropdown,
   Button,
 } from "react-bootstrap";
-import { FaShoppingCart, FaUser } from "react-icons/fa";
+import { FaShoppingCart, FaUser, FaBars } from "react-icons/fa";
 import { LinkContainer } from "react-router-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -47,9 +47,9 @@ const Header = () => {
       />
       <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
         <Container>
-          <Button variant='primary' onClick={handleSidebarToggle}>
-            Toggle sidebar
-          </Button>
+          <Nav.Link onClick={handleSidebarToggle}>
+            <FaBars className="text-white mx-2"/>
+          </Nav.Link>
           <LinkContainer to='/'>
             <Navbar.Brand>Newcastle Auto Spare Parts</Navbar.Brand>
           </LinkContainer>

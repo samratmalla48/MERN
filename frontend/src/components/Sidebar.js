@@ -5,7 +5,7 @@ const Sidebar = ({ isSidebarVisible, handleSidebarToggle }) => {
   return (
     <Offcanvas show={isSidebarVisible} onHide={handleSidebarToggle}>
       <Offcanvas.Header>
-        <Offcanvas.Title>Sidebar</Offcanvas.Title>
+        <Offcanvas.Title>Categories</Offcanvas.Title>
         <Button variant="close" onClick={handleSidebarToggle} />
       </Offcanvas.Header>
       <Offcanvas.Body>

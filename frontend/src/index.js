@@ -30,6 +30,8 @@ import UpdateProfilePage from "./pages/ProfilePage";
 import UserEditPage from "./pages/admin/UserEditPage";
 import AboutUsPage from "./pages/AboutUsPage";
 import UserListPage from "./pages/admin/UserListPage";
+import OrderPage from "./pages/OrderPage";
+import PlaceOrderPage from "./pages/PlaceOrderPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -45,6 +47,8 @@ const router = createBrowserRouter(
         <Route path='/shipping' element={<ShippingPage />} />
         <Route path='payment' element={<PaymentPage />} />
         <Route path='/profile' element={<ProfilePage />} />
+        <Route path='/placeOrder' element={<PlaceOrderPage />} />
+        <Route path='/order/:id' element={<OrderPage />} />
       </Route>
 
       <Route path='' element={<AdminRoute />}>
@@ -53,8 +57,6 @@ const router = createBrowserRouter(
         <Route path='/admin/product/:id/edit' element={<ProductUpdatePage />} />
         <Route path='/admin/user/:id/edit' element={<UserEditPage />} />
         <Route path='/admin/userlist/' element={<UserListPage />} />
-
-
       </Route>
     </Route>
   )
