@@ -17,3 +17,4 @@ To Run the Project
 Frontend - React (Redux, Bootstrap)
 Backend - Models, controllers, routes
 Uploads - Image Upload
+Edited
