@@ -90,7 +90,7 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
     
     const updatedOrder = await order.save();
 
-    res.status(201).json(updatedOrder);
+    res.status(200).json(updatedOrder);
     console.log(updatedOrder)
   } else {
     res.status(404);
