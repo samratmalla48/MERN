@@ -3,10 +3,12 @@ import Product from "../components/Product";
 import { useGetProductsQuery } from "../slices/productsApiSlice";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import { useParams } from 'react-router-dom';
 // import ProductCarousel from "../components/ProductCarousel";
 
 const HomePage = () => {
-  const { data: products, isLoading, error } = useGetProductsQuery({
+  const{keyword} = useParams();
+  const { data: products, isLoading, error } = useGetProductsQuery({keyword
   });
   
 
