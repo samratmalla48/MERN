@@ -4,7 +4,7 @@ import { useGetProductsQuery } from "../slices/productsApiSlice";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { useParams } from 'react-router-dom';
-// import ProductCarousel from "../components/ProductCarousel";
+import ProductCarousel from "../components/ProductCarousel";
 
 const HomePage = () => {
   const{keyword} = useParams();
@@ -13,7 +13,8 @@ const HomePage = () => {
   
 
   return (
-    <>
+    <>{!keyword?<ProductCarousel/>:(console.log("go back"))}
+      
       {isLoading ? (
         <Loader></Loader>
       ) : error ? (

@@ -24,14 +24,14 @@ const getProductById = asyncHandler(async (req, res) => {
     throw new Error("Product not found");
   }
 });
-// const getProductById = asyncHandler(async (req, res) => {
-//   console.log("rex")
-//   // const product = await Product.findById(req.params.id);
 
-//   // if (product) {
-//   //   return res.json(product)
-//   // }
-// })
+
+const getTopProducts = asyncHandler(async (req, res) => {
+  console.log("Handling request for /api/products/top"); // Add this line for debugging
+  const products = await Product.find({}).sort({ rating: -1 }).limit(3);
+  res.status(200).json(products);
+});
+
 
 const createProduct = asyncHandler(async (req, res) => {
   console.log("check");
@@ -78,4 +78,4 @@ const updateProduct = asyncHandler(async (req, res) => {
   }
 });
 
-export { createProduct, getProductById, getProducts, updateProduct };
+export { createProduct, getProductById, getProducts, updateProduct,getTopProducts, };
