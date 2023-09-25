@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
+import { number } from 'mathjs';
 
 const userSchema = mongoose.Schema({
     name: {
@@ -10,6 +11,18 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
         unique: true
+    },
+    phone: {
+        type: String,
+        default:"0426414113",
+        // required: true,
+        validate: {
+            validator: function (v) {
+                // Check if the phone number is exactly 10 digits long
+                return /^[0-9]{10}$/.test(v);
+            },
+            message: props => `${props.value} is not a valid 10-digit phone number!`
+        }
     },
     password: {
         type: String,
