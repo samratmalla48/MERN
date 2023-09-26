@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
-import { number } from 'mathjs';
+import { boolean, number, string } from 'mathjs';
 
 const userSchema = mongoose.Schema({
     name: {
@@ -32,7 +32,14 @@ const userSchema = mongoose.Schema({
         type: Boolean,
         required: true,
         default: false,
-    }
+    },
+    isEmailVerified:{
+        type:boolean,
+        default:false,
+    },
+    verificationToken:string,
+    
+
 }, { timestamps: true });
 
 userSchema.pre('save', async function(next) {

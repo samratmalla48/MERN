@@ -40,7 +40,9 @@ const RegisterPage = () => {
     } else {
       try {
         const res = await register({ name, email, password,phone }).unwrap();
+        
         dispatch(setCredentials({ ...res }));
+        toast.success(res.message);
         navigate(redirect);
       } catch (err) {
         toast.error(err?.data?.message || err.error);
