@@ -10,7 +10,7 @@ const App = () => {
     <>
       <Header />
       <main className='py-3'>
-        <Container>
+        <Container  className="blocked-content">
           <h1 className="intro text-center">Welcome to Newcastle Auto Spare Parts</h1>
           <Outlet></Outlet>
         </Container>

@@ -11,6 +11,19 @@
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 } */
+.blocked-content {
+  margin-top: 60px; /* Adjust the margin-top value to match the height of your navigation bar */
+}
+
+
+.search-input-container {
+  width: 600px; 
+}
+
+.search-input {
+  font-size: 18px;
+  padding: 10px 15px;
+}
 
 .navbar {
   background-color: #076ae1;
@@ -40,3 +53,65 @@
 .footer-bottom {
   background-color: rgb(11, 57, 110);
 }
+
+/* HomePage.css */
+.product-card {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.product-card:hover {
+  transform: scale(1.05); /* Increase card size on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add box shadow on hover */
+}
+
+
+/* HomePage.css */
+.product-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.product-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.product-card-image {
+  height: 200px;
+  overflow: hidden;
+}
+
+.product-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-card .card-body {
+  padding: 1rem;
+}
+
+.product-card .card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.product-card .card-text {
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+.product-card .btn-primary {
+  background-color: #076ae1;
+  border-color: #076ae1;
+  color: #fff;
+}
+
+.product-card .btn-primary:hover {
+  background-color: #076ae1;
+  border-color: #076ae1;
+}
+
