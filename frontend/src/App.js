@@ -11,7 +11,7 @@ const App = () => {
       <Header />
       <main className='py-3'>
         <Container>
-          <h1>Welcome to Newcastle</h1>
+          <h1 className="intro text-center">Welcome to Newcastle Auto Spare Parts</h1>
           <Outlet></Outlet>
         </Container>
       </main>

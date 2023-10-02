@@ -15,6 +15,7 @@ import { logout } from "../slices/authSlice";
 import SearchBox from "./SearchBox";
 import { useState } from "react";
 import Sidebar from "./Sidebar";
+import logo from "../assets/logo_white.png";
 
 const Header = () => {
   const { cartItems } = useSelector((state) => state.cart);
@@ -45,13 +46,15 @@ const Header = () => {
         isSidebarVisible={isSidebarVisible}
         handleSidebarToggle={handleSidebarToggle}
       />
-      <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
+      <Navbar expand='lg' className='bg-primary text-white' collapseOnSelect>
         <Container>
           <Nav.Link onClick={handleSidebarToggle}>
-            <FaBars className="text-white mx-2"/>
+            <FaBars className='text-white mx-2' />
           </Nav.Link>
           <LinkContainer to='/'>
-            <Navbar.Brand>Newcastle Auto Spare Parts</Navbar.Brand>
+            <Navbar.Brand>
+              <img class="logo" src={logo} alt='Newcastle Auto Spare Parts' />
+            </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>

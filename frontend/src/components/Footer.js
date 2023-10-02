@@ -3,8 +3,8 @@ import { Container, Row, Col, NavLink } from "react-bootstrap";
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   return (
-    <footer>
-      <Container fluid className='footer bg-dark text-white'>
+    <footer className='text-white'>
+      <Container fluid className='footer text-white'>
         <Container>
           <Row>
             <Col xs={4}>
@@ -34,13 +34,9 @@ const Footer = () => {
           </Row>
         </Container>
       </Container>
-      <Container>
-        <Row>
-          <Col className='text-center py-3'>
-            <p>Newcastle Auto Spare Parts Pty Ltd &copy; {currentYear}</p>
-          </Col>
-        </Row>
-      </Container>
+      <div className='text-center footer-bottom py-3'>
+        Newcastle Auto Spare Parts Pty Ltd &copy; {currentYear}
+      </div>
     </footer>
   );
 };

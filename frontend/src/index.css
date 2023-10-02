@@ -12,8 +12,31 @@
     monospace;
 } */
 
+.navbar {
+  background-color: #076ae1;
+  /* color: #fff; */
+}
 
+.navbar .nav-link {
+  color: #fff;
+}
+
+.logo {
+  width: 20%;
+}
+
+.intro {
+  padding-bottom: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
 .footer {
   padding-top: 20px;
-  padding-bottom: 20px;
+  /* padding-bottom: 20px; */
+  background-color: #076ae1;
+  color: #fff;
+}
+
+.footer-bottom {
+  background-color: rgb(11, 57, 110);
 }
