@@ -1,6 +1,8 @@
-import asyncHandler from '../middleware/asyncHandler.js';
-import generateToken from '../utils/generateToken.js';
-import User from '../models/userModel.js';
+import asyncHandler from "../middleware/asyncHandler.js";
+import generateToken from "../utils/generateToken.js";
+import User from "../models/userModel.js";
+import cryptoRandomString from "crypto-random-string";
+import nodemailer from "nodemailer";
 
 // @desc    Auth user & get token
 // @route   POST /api/users/auth
@@ -18,10 +20,11 @@ const authUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      phone: user.phone,
     });
   } else {
     res.status(401);
-    throw new Error('Invalid email or password');
+    throw new Error("Invalid email or password");
   }
 });
 
@@ -29,33 +32,68 @@ const authUser = asyncHandler(async (req, res) => {
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, phone } = req.body;
 
   const userExists = await User.findOne({ email });
 
   if (userExists) {
     res.status(400);
-    throw new Error('User already exists');
+    throw new Error("User already exists");
   }
 
   const user = await User.create({
     name,
     email,
     password,
+    phone,
   });
 
   if (user) {
     generateToken(res, user._id);
+    const verificationToken = cryptoRandomString({
+      length: 64,
+      type: "url-safe",
+    });
+    user.verificationToken = verificationToken;
+    await user.save();
+    // Send a verification email to the user
+    const transporter = nodemailer.createTransport({
+      service: "Gmail", // e.g., Gmail
+      auth: {
+        user: "samratmalla48@gmail.com",
+        pass: "ttgr ofix cqpu uedk",
+      },
+    });
 
-    res.status(201).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      isAdmin: user.isAdmin,
+    const mailOptions = {
+      from: "samratmalla48@gmail.com",
+      to: user.email,
+      subject: "Email Verification",
+      html: `
+  <p>Click the following link to verify your email:</p>
+  <p><a href="http://localhost:5000/api/users/verify-email/${verificationToken}">Verify Email</a></p>
+  `,
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error(error);
+        throw new Error("Failed to send verification email");
+      } else {
+        console.log("Email sent: " + info.response);
+        res.status(201).json({
+          message: "Registration successful. Please verify your email.",
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          isAdmin: user.isAdmin,
+          phone: user.phone,
+        });
+      }
     });
   } else {
     res.status(400);
-    throw new Error('Invalid user data');
+    throw new Error("Invalid user data");
   }
 });
 
@@ -63,11 +101,11 @@ const registerUser = asyncHandler(async (req, res) => {
 // @route   POST /api/users/logout
 // @access  Public
 const logoutUser = (req, res) => {
-  res.cookie('jwt', '', {
+  res.cookie("jwt", "", {
     httpOnly: true,
     expires: new Date(0),
   });
-  res.status(200).json({ message: 'Logged out successfully' });
+  res.status(200).json({ message: "Logged out successfully" });
 };
 
 // @desc    Get user profile
@@ -82,10 +120,11 @@ const getUserProfile = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      phone: user.phone,
     });
   } else {
     res.status(404);
-    throw new Error('User not found');
+    throw new Error("User not found");
   }
 });
 
@@ -98,6 +137,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   if (user) {
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
+    user.phone = req.body.phone || user.phone;
 
     if (req.body.password) {
       user.password = req.body.password;
@@ -109,11 +149,12 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       _id: updatedUser._id,
       name: updatedUser.name,
       email: updatedUser.email,
+      phone: updatedUser.phone,
       isAdmin: updatedUser.isAdmin,
     });
   } else {
     res.status(404);
-    throw new Error('User not found');
+    throw new Error("User not found");
   }
 });
 
@@ -134,13 +175,13 @@ const deleteUser = asyncHandler(async (req, res) => {
   if (user) {
     if (user.isAdmin) {
       res.status(400);
-      throw new Error('Can not delete admin user');
+      throw new Error("Can not delete admin user");
     }
     await User.deleteOne({ _id: user._id });
-    res.json({ message: 'User removed' });
+    res.json({ message: "User removed" });
   } else {
     res.status(404);
-    throw new Error('User not found');
+    throw new Error("User not found");
   }
 });
 
@@ -148,13 +189,13 @@ const deleteUser = asyncHandler(async (req, res) => {
 // @route   GET /api/users/:id
 // @access  Private/Admin
 const getUserById = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.params.id).select('-password');
+  const user = await User.findById(req.params.id).select("-password");
 
   if (user) {
     res.json(user);
   } else {
     res.status(404);
-    throw new Error('User not found');
+    throw new Error("User not found");
   }
 });
 // @desc    Update user
@@ -178,7 +219,7 @@ const updateUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(404);
-    throw new Error('User not found');
+    throw new Error("User not found");
   }
 });
 

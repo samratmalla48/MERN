@@ -14,6 +14,7 @@ import { setCredentials } from '../slices/authSlice';
 const ProfilePage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const[phone,setPhone]=useState("");
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -27,6 +28,7 @@ const ProfilePage = () => {
   useEffect(() => {
     setName(userInfo.name);
     setEmail(userInfo.email);
+    setPhone(userInfo.phone);
   }, [userInfo.email, userInfo.name]);
 
   const dispatch = useDispatch();
@@ -41,6 +43,7 @@ const ProfilePage = () => {
           name,
           email,
           password,
+          phone,
         }).unwrap();
         dispatch(setCredentials({ ...res }));
         toast.success('Profile updated successfully');
@@ -75,6 +78,15 @@ const ProfilePage = () => {
               onChange={(e) => setEmail(e.target.value)}
             ></Form.Control>
           </Form.Group>
+          <Form.Group className='my-2' controlId='phone'>
+          <Form.Label>Phone Number</Form.Label>
+          <Form.Control
+            type='string'
+            placeholder='Enter phone'
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          ></Form.Control>
+        </Form.Group>
 
           <Form.Group className='my-2' controlId='password'>
             <Form.Label>Password</Form.Label>

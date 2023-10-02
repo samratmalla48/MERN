@@ -13,6 +13,7 @@ const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const[phone,setPhone]=useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -38,8 +39,10 @@ const RegisterPage = () => {
       return;
     } else {
       try {
-        const res = await register({ name, email, password }).unwrap();
+        const res = await register({ name, email, password,phone }).unwrap();
+        
         dispatch(setCredentials({ ...res }));
+        toast.success(res.message);
         navigate(redirect);
       } catch (err) {
         toast.error(err?.data?.message || err.error);
@@ -70,6 +73,18 @@ const RegisterPage = () => {
             onChange={(e) => setEmail(e.target.value)}
           ></Form.Control>
         </Form.Group>
+
+        <Form.Group className='my-2' controlId='phone'>
+          <Form.Label>Phone Number</Form.Label>
+          <Form.Control
+            type='string'
+            placeholder='Enter phone'
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          ></Form.Control>
+        </Form.Group>
+
+
 
         <Form.Group className='my-2' controlId='password'>
           <Form.Label>Password</Form.Label>

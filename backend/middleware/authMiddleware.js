@@ -10,16 +10,22 @@ const protect = asyncHandler(async (req, res, next) => {
   if (token) {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      req.user = await User.findById(decoded.userId).select('-password');
-      next();  
+      req.user = await User.findById(decoded.userId).select("-password");
+
+      if (req.user.isEmailVerified) {
+        next(); // Allow access to protected routes if email is verified
+      } else {
+        res.status(401);
+        throw new Error("Email not verified");
+      }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       res.status(401);
-      throw new Error("Not Authorised, Token Failed");
+      throw new Error("Email not Verified ");
     }
   } else {
     res.status(401);
-    throw new Error("Not Authorised, no token");
+    throw new Error("Email not verified");
   }
 });
 
@@ -28,7 +34,7 @@ const admin = (req, res, next) => {
     next();
   } else {
     res.status(401);
-    throw new Error("Not Authorised as Admin");
+    throw new Error("Not Authorized as Admin");
   }
 };
 

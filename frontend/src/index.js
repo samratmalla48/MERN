@@ -33,12 +33,14 @@ import UserListPage from "./pages/admin/UserListPage";
 import OrderPage from "./pages/OrderPage";
 import PlaceOrderPage from "./pages/PlaceOrderPage";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import InvalidTokenError from './components/InvalidTokenError';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App />}>
       <Route index={true} path='/' element={<HomePage />} />
       <Route  path='/search/:keyword' element={<HomePage />} />
+      <Route path='/invalid-token' element={<InvalidTokenError />} />
 
       <Route path='/product/:id' element={<ProductPage />} />
       <Route path='/cart' element={<CartPage />} />
@@ -60,6 +62,7 @@ const router = createBrowserRouter(
         <Route path='/admin/product/:id/edit' element={<ProductUpdatePage />} />
         <Route path='/admin/user/:id/edit' element={<UserEditPage />} />
         <Route path='/admin/userlist/' element={<UserListPage />} />
+        
       </Route>
     </Route>
   )
