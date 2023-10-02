@@ -6,20 +6,11 @@ import { useGetTopProductsQuery } from "../slices/productsApiSlice";
 const ProductCarousel = () => {
   const { data: products, isLoading, error } = useGetTopProductsQuery();
 
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <Message variant="danger">Failed to load products</Message>;
-  }
-
-  // Limit the number of products displayed in the carousel
-  const visibleProducts = products.slice(0, 3);
-
-  return (
-    <Carousel pause="hover" className="bg-primary mb-4">
-      {visibleProducts.map((product) => (
+  return isLoading ? null : error ? (
+    <Message variant='danger'>{error?.data?.message || error.error}</Message>
+  ) : (
+    <Carousel pause='hover' className='bg-primary mb-4'>
+      {products.map((product) => (
         <Carousel.Item key={product._id}>
           <Link to={`/product/${product._id}`}>
             <Row>
@@ -27,9 +18,9 @@ const ProductCarousel = () => {
                 <Image src={product.image} alt={product.name} fluid />
               </Col>
               <Col>
-                <Carousel.Caption className="carousel-caption text-center">
-                  <h2 className="text-white">
-                    <strong>{product.name}</strong> (${product.price})
+                <Carousel.Caption className='carousel-caption text-centre'>
+                  <h2 className='text-white'>
+                    <strong>{product.name} </strong>(${product.price})
                   </h2>
                   <p>{product.description}</p>
                 </Carousel.Caption>

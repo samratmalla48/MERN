@@ -11,13 +11,50 @@
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 } */
+
+main {
+  min-height: 80vh;
+}
+
+.carousel-caption {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
 .blocked-content {
   margin-top: 60px; /* Adjust the margin-top value to match the height of your navigation bar */
 }
 
+/* ProductCarousel.css */
+.supercheap-carousel {
+  background-color: #fff; /* Set the background color to white */
+}
+
+.carousel-content {
+  padding: 20px;
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.6
+  ); /* Add a semi-transparent black background */
+  border-radius: 10px;
+}
+
+.text-white {
+  color: #fff; /* Set text color to white */
+}
+
+.shop-button {
+  background-color: #ff3666; /* Customize the shop button background color */
+}
 
 .search-input-container {
-  width: 600px; 
+  width: 600px;
 }
 
 .search-input {
@@ -63,7 +100,6 @@
   transform: scale(1.05); /* Increase card size on hover */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add box shadow on hover */
 }
-
 
 /* HomePage.css */
 .product-card {
@@ -114,4 +150,3 @@
   background-color: #076ae1;
   border-color: #076ae1;
 }
-
