@@ -1,13 +1,8 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import Order from "../models/orderModel.js";
-
-// @desc    Create a product
-// @route   POST /api/products
-// @access  Private/Admin
+import nodemailer from "nodemailer"; // Import Nodemailer
 
 const addOrderItems = asyncHandler(async (req, res) => {
-  // const orders = await Order.find({});
-  // res.json(orders);
   const {
     orderItems,
     shippingAddress,
@@ -38,6 +33,104 @@ const addOrderItems = asyncHandler(async (req, res) => {
     });
     const createdOrder = await order.save();
 
+    // Send an email with the list of items
+    const transporter = nodemailer.createTransport({
+      service: "Gmail",
+      auth: {
+        user: "samratmalla48@gmail.com",
+        pass: "ttgr ofix cqpu uedk",
+      },
+    });
+
+    const mailOptions = {
+      from: "samratmalla48@gmail.com",
+      to: req.user.email, // Send the email to the user who placed the order
+      subject: "Order Confirmation",
+      html: `
+<html>
+<head>
+<style>
+body {
+font-family: Arial, sans-serif;
+}
+.email-container {
+background-color: #f5f5f5;
+padding: 20px;
+border-radius: 10px;
+}
+.header {
+background-color: #007bff;
+color: #fff;
+padding: 10px;
+text-align: center;
+font-size: 24px;
+}
+.order-details {
+background-color: #fff;
+padding: 20px;
+border-radius: 5px;
+box-shadow: 0px 0px 5px 0px #ccc;
+}
+ul {
+list-style-type: none;
+padding: 0;
+}
+li {
+margin-bottom: 10px;
+}
+.item-name {
+font-weight: bold;
+}
+.item-quantity {
+font-style: italic;
+}
+.item-price {
+font-weight: bold;
+}
+.totals {
+font-weight: bold;
+}
+</style>
+</head>
+<body>
+<div class="email-container">
+<div class="header">
+Order Confirmation
+</div>
+<div class="order-details">
+<p>Thank you for your order. Here is the list of items:</p>
+<ul>
+${orderItems
+  .map(
+    (item) => `
+<li>
+<span class="item-name">${item.name}</span>:
+<span class="item-quantity">${item.qty} x</span>
+<span class="item-price">$${item.price}</span>
+</li>
+`
+  )
+  .join("")}
+</ul>
+<p class="totals">Tax Price: $${taxPrice}</p>
+<p class="totals">Total Price: $${totalPrice}</p>
+</div>
+</div>
+</body>
+</html>
+`,
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error(error);
+        // Handle the error if email sending fails
+      } else {
+        console.log("Email sent: " + info.response);
+        // Email sent successfully
+      }
+    });
+
     res.status(201).json(createdOrder);
   }
 });
@@ -66,8 +159,8 @@ const getOrderById = asyncHandler(async (req, res) => {
 });
 
 const updateOrderToDelivered = asyncHandler(async (req, res) => {
-  //   const orders = await Order.find({});
-  //   res.json(orders);
+  // const orders = await Order.find({});
+  // res.json(orders);
 
   res.send("update order delivered");
 });
@@ -80,23 +173,22 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
     console.log("chagnge");
     order.isPaid = true;
     order.paidAt = Date.now;
-    console.log(order.isPaid)
+    console.log(order.isPaid);
     order.paymentResult = {
       id: req.body.id,
       status: req.body.status,
       update_time: req.body.update_time,
       email_address: "test@email.com",
     };
-    
+
     const updatedOrder = await order.save();
-    console.log(updatedOrder)
+    console.log(updatedOrder);
     res.status(200).json(updatedOrder);
-    
   } else {
     res.status(404);
     throw new Error("Order not found");
   }
-  //   res.json(orders);
+  // res.json(orders);
 });
 
 export {
