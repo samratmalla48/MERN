@@ -1,17 +1,17 @@
-import { useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { Row, Col, ListGroup, Image, Card, Button } from 'react-bootstrap';
-import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
-import { useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
-import Message from '../components/Message';
-import Loader from '../components/Loader';
+import { useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import { Row, Col, ListGroup, Image, Card, Button } from "react-bootstrap";
+import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import Message from "../components/Message";
+import Loader from "../components/Loader";
 import {
   useDeliverOrderMutation,
   useGetOrderDetailsQuery,
   useGetPaypalClientIdQuery,
   usePayOrderMutation,
-} from '../slices/ordersApiSlice';
+} from "../slices/ordersApiSlice";
 
 const OrderPage = () => {
   const { id: orderId } = useParams();
@@ -42,13 +42,13 @@ const OrderPage = () => {
     if (!errorPayPal && !loadingPayPal && paypal.clientId) {
       const loadPaypalScript = async () => {
         paypalDispatch({
-          type: 'resetOptions',
+          type: "resetOptions",
           value: {
-            'client-id': paypal.clientId,
-            currency: 'AUD',
+            "client-id": paypal.clientId,
+            currency: "AUD",
           },
         });
-        paypalDispatch({ type: 'setLoadingStatus', value: 'pending' });
+        paypalDispatch({ type: "setLoadingStatus", value: "pending" });
       };
       if (order && !order.isPaid) {
         if (!window.paypal) {
@@ -63,7 +63,7 @@ const OrderPage = () => {
       try {
         await payOrder({ orderId, details });
         refetch();
-        toast.success('Payment Successful');
+        toast.success("Payment Successful");
       } catch (err) {
         toast.error(err?.data?.message || err.error);
       }
@@ -75,7 +75,7 @@ const OrderPage = () => {
     await payOrder({ orderId, details: { payer: {} } });
     refetch();
 
-    toast.success('Payment Successful');
+    toast.success("Payment Successful");
   }
 
   function onError(err) {
@@ -117,13 +117,13 @@ const OrderPage = () => {
                 <strong>Name: </strong> {order.user.name}
               </p>
               <p>
-                <strong>Email: </strong>{' '}
+                <strong>Email: </strong>{" "}
                 <a href={`mailto:${order.user.email}`}>{order.user.email}</a>
               </p>
               <p>
                 <strong>Address:</strong>
-                {order.shippingAddress.address}, {order.shippingAddress.city}{' '}
-                {order.shippingAddress.postalCode},{' '}
+                {order.shippingAddress.address}, {order.shippingAddress.city}{" "}
+                {order.shippingAddress.postalCode},{" "}
                 {order.shippingAddress.country}
               </p>
               {order.isDelivered ? (
@@ -219,9 +219,8 @@ const OrderPage = () => {
                     <Loader />
                   ) : (
                     <div>
-
                       <Button
-                        style={{ marginBottom: '10px' }}
+                        style={{ marginBottom: "10px" }}
                         onClick={onApproveTest}
                       >
                         Test Pay Order
@@ -240,7 +239,6 @@ const OrderPage = () => {
               )}
 
               {loadingDeliver && <Loader />}
-
               {userInfo &&
                 userInfo.isAdmin &&
                 order.isPaid &&

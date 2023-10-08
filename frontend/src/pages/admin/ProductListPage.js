@@ -24,8 +24,6 @@ const ProductListPage = () => {
     pageNumber,
   });
 
-  console.log(products);
-
   const [deleteProduct, { isLoading: loadingDelete }] =
     useDeleteProductMutation();
 

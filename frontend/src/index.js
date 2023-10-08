@@ -34,6 +34,7 @@ import OrderPage from "./pages/OrderPage";
 import PlaceOrderPage from "./pages/PlaceOrderPage";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import InvalidTokenError from './components/InvalidTokenError';
+import CategoryPage from "./pages/admin/CategoryPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -57,6 +58,7 @@ const router = createBrowserRouter(
       </Route>
 
       <Route path='' element={<AdminRoute />}>
+      <Route path='/admin/category/' element={<CategoryPage />} />
         <Route path='/admin/orderlist/' element={<OrderListPage />} />
         <Route path='/admin/productList/' element={<ProductListPage />} />
         <Route path='/admin/product/:id/edit' element={<ProductUpdatePage />} />

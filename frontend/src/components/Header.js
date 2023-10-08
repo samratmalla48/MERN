@@ -10,6 +10,7 @@ import SearchBox from './SearchBox';
 import { useState } from 'react';
 import Sidebar from './Sidebar';
 import logo from '../assets/logo_white.png';
+import pdf from '../assets/pc.pdf'
 
 const Header = () => {
   const { cartItems } = useSelector((state) => state.cart);
@@ -69,6 +70,12 @@ const Header = () => {
               <LinkContainer to="/aboutUs">
                 <Nav.Link>About Us</Nav.Link>
               </LinkContainer>
+              {/* <LinkContainer to={pdf} target="_blank" download="product catalouge">
+                <Nav.Link>Product Catalouge</Nav.Link>
+              </LinkContainer> */}
+              <a href={pdf} className="nav-link" download="Product Catalouge">
+              Product Catalouge
+              </a>
               <LinkContainer to="/cart">
                 <Nav.Link>
                   <FaShoppingCart /> Cart
@@ -99,6 +106,9 @@ const Header = () => {
                 <NavDropdown title="Admin" id="adminmenu">
                   <LinkContainer to="/admin/orderlist">
                     <NavDropdown.Item>Orders</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to="/admin/category">
+                    <NavDropdown.Item>Categories</NavDropdown.Item>
                   </LinkContainer>
                   <LinkContainer to="/admin/productList">
                     <NavDropdown.Item>Products</NavDropdown.Item>

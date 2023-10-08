@@ -1,26 +1,34 @@
-import { useState, useEffect } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Form, Button } from 'react-bootstrap';
-import Message from '../../components/Message';
-import Loader from '../../components/Loader';
-import FormContainer from '../../components/FormContainer';
-import { toast } from 'react-toastify';
+import { useState, useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { Form, Button } from "react-bootstrap";
+import Message from "../../components/Message";
+import Loader from "../../components/Loader";
+import FormContainer from "../../components/FormContainer";
+import { toast } from "react-toastify";
+import { useGetCategoriesQuery } from "../../slices/categoriesSlice";
 import {
   useGetProductDetailsQuery,
   useUpdateProductMutation,
   useUploadProductImageMutation,
-} from '../../slices/productsApiSlice';
+} from "../../slices/productsApiSlice";
 
 const ProductUpdatePage = () => {
   const { id: productId } = useParams();
 
-  const [name, setName] = useState('');
+  const {
+    data: productCategories,
+    isLoading: catLoading,
+    error: catError,
+  } = useGetCategoriesQuery();
+
+
+  const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
-  const [image, setImage] = useState('');
-  const [brand, setBrand] = useState('');
-  const [category, setCategory] = useState('');
+  const [image, setImage] = useState("");
+  const [brand, setBrand] = useState("");
+  const [category, setCategory] = useState("");
   const [countInStock, setCountInStock] = useState(0);
-  const [description, setDescription] = useState('');
+  const [description, setDescription] = useState("");
 
   const {
     data: product,
@@ -49,10 +57,10 @@ const ProductUpdatePage = () => {
         category,
         description,
         countInStock,
-      }).unwrap(); // NOTE: here we need to unwrap the Promise to catch any rejection in our catch block
-      toast.success('Product updated');
+      }).unwrap();
+      toast.success("Product updated");
       refetch();
-      navigate('/admin/productlist');
+      navigate("/admin/productlist");
     } catch (err) {
       toast.error(err?.data?.message || err.error);
     }
@@ -72,7 +80,7 @@ const ProductUpdatePage = () => {
 
   const uploadFileHandler = async (e) => {
     const formData = new FormData();
-    formData.append('image', e.target.files[0]);
+    formData.append("image", e.target.files[0]);
     try {
       const res = await uploadProductImage(formData).unwrap();
       toast.success(res.message);
@@ -152,7 +160,7 @@ const ProductUpdatePage = () => {
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId='category'>
+            {/* <Form.Group controlId='category'>
               <Form.Label>Category</Form.Label>
               <Form.Control
                 type='text'
@@ -160,7 +168,40 @@ const ProductUpdatePage = () => {
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
               ></Form.Control>
+            </Form.Group> */}
+
+            <Form.Group controlId='category'>
+              <Form.Label>Category</Form.Label>
+              {catLoading ? (
+                <p>Loading categories...</p>
+              ) : catError ? (
+                <p>Error loading categories: {catError.message}</p>
+              ) : (
+                <Form.Select
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                >
+                  <option value=''>Select a category</option>
+                  {productCategories.map((category) => (
+                    <option key={category._id} value={category.name}>
+                      {category.name}
+                    </option>
+                  ))}
+                </Form.Select>
+              )}
             </Form.Group>
+
+            {/* <Form.Group controlId='category'>
+              <Form.Label>Category</Form.Label>
+              <Form.Select onChange={(e) => setCategory(e.target.value)}>
+                <option value={category}>{category}</option>
+                {categories.map((category) => (
+                  <option key={category.id} value={category.name}>
+                    {category.name}
+                  </option>
+                ))}
+              </Form.Select>
+            </Form.Group> */}
 
             <Form.Group controlId='description'>
               <Form.Label>Description</Form.Label>
@@ -175,7 +216,7 @@ const ProductUpdatePage = () => {
             <Button
               type='submit'
               variant='primary'
-              style={{ marginTop: '1rem' }}
+              style={{ marginTop: "1rem" }}
             >
               Update
             </Button>
