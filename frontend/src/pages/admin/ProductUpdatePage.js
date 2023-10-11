@@ -21,7 +21,6 @@ const ProductUpdatePage = () => {
     error: catError,
   } = useGetCategoriesQuery();
 
-
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState("");
@@ -92,7 +91,7 @@ const ProductUpdatePage = () => {
 
   return (
     <>
-      <Link to='/admin/productlist' className='btn btn-light my-3'>
+      <Link to="/admin/productlist" className="btn btn-light my-3">
         Go Back
       </Link>
       <FormContainer>
@@ -101,76 +100,76 @@ const ProductUpdatePage = () => {
         {isLoading ? (
           <Loader />
         ) : error ? (
-          <Message variant='danger'>{error.data.message}</Message>
+          <Message variant="danger">{error.data.message}</Message>
         ) : (
           <Form onSubmit={submitHandler}>
-            <Form.Group controlId='name'>
+            <Form.Group controlId="name">
               <Form.Label>Name</Form.Label>
               <Form.Control
-                type='name'
-                placeholder='Enter name'
+                type="name"
+                placeholder="Enter name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId='price'>
+            <Form.Group controlId="price">
               <Form.Label>Price</Form.Label>
               <Form.Control
-                type='number'
-                placeholder='Enter price'
+                type="number"
+                placeholder="Enter price"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId='image'>
+            <Form.Group controlId="image">
               <Form.Label>Image</Form.Label>
               <Form.Control
-                type='text'
-                placeholder='Enter image url'
+                type="text"
+                placeholder="Enter image url"
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
               ></Form.Control>
               <Form.Control
-                label='Choose File'
+                label="Choose File"
                 onChange={uploadFileHandler}
-                type='file'
+                type="file"
               ></Form.Control>
               {loadingUpload && <Loader />}
             </Form.Group>
 
-            <Form.Group controlId='brand'>
+            <Form.Group controlId="brand">
               <Form.Label>Brand</Form.Label>
               <Form.Control
-                type='text'
-                placeholder='Enter brand'
+                type="text"
+                placeholder="Enter brand"
                 value={brand}
                 onChange={(e) => setBrand(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId='countInStock'>
+            <Form.Group controlId="countInStock">
               <Form.Label>Count In Stock</Form.Label>
               <Form.Control
-                type='number'
-                placeholder='Enter countInStock'
+                type="number"
+                placeholder="Enter countInStock"
                 value={countInStock}
                 onChange={(e) => setCountInStock(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
             {/* <Form.Group controlId='category'>
-              <Form.Label>Category</Form.Label>
-              <Form.Control
-                type='text'
-                placeholder='Enter category'
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              ></Form.Control>
-            </Form.Group> */}
+<Form.Label>Category</Form.Label>
+<Form.Control
+type='text'
+placeholder='Enter category'
+value={category}
+onChange={(e) => setCategory(e.target.value)}
+></Form.Control>
+</Form.Group> */}
 
-            <Form.Group controlId='category'>
+            <Form.Group controlId="category">
               <Form.Label>Category</Form.Label>
               {catLoading ? (
                 <p>Loading categories...</p>
@@ -181,9 +180,9 @@ const ProductUpdatePage = () => {
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
                 >
-                  <option value=''>Select a category</option>
+                  <option value="">Select a category</option>
                   {productCategories.map((category) => (
-                    <option key={category._id} value={category.name}>
+                    <option key={category._id} value={category._id}>
                       {category.name}
                     </option>
                   ))}
@@ -191,31 +190,21 @@ const ProductUpdatePage = () => {
               )}
             </Form.Group>
 
-            {/* <Form.Group controlId='category'>
-              <Form.Label>Category</Form.Label>
-              <Form.Select onChange={(e) => setCategory(e.target.value)}>
-                <option value={category}>{category}</option>
-                {categories.map((category) => (
-                  <option key={category.id} value={category.name}>
-                    {category.name}
-                  </option>
-                ))}
-              </Form.Select>
-            </Form.Group> */}
+            
 
-            <Form.Group controlId='description'>
+            <Form.Group controlId="description">
               <Form.Label>Description</Form.Label>
               <Form.Control
-                type='text'
-                placeholder='Enter description'
+                type="text"
+                placeholder="Enter description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
             <Button
-              type='submit'
-              variant='primary'
+              type="submit"
+              variant="primary"
               style={{ marginTop: "1rem" }}
             >
               Update

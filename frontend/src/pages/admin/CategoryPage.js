@@ -3,7 +3,6 @@ import { Form, Button, Table } from "react-bootstrap";
 import { FaTrash } from "react-icons/fa";
 import Loader from "../../components/Loader";
 import Message from "../../components/Message";
-
 import {
   useCreateCategoryMutation,
   useGetCategoriesQuery,
@@ -11,11 +10,8 @@ import {
 } from "../../slices/categoriesSlice";
 import { toast } from "react-toastify";
 
-function CategoryPage({ onAddCategory }) {
+function CategoryPage() {
   const [name, setCategoryName] = useState("");
- 
-
-
 
   const {
     data: categories,

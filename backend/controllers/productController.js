@@ -1,18 +1,19 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import Product from "../models/productModel.js";
 
-// @desc    Create a product
-// @route   POST /api/products
-// @access  Private/Admin
+// @desc Create a product
+// @route POST /api/products
+// @access Private/Admin
 
 const getProducts = asyncHandler(async (req, res) => {
-  
-  const keyword = req.query.keyword ? { name: { $regex: req. query. keyword, $options: 'i' } }: {};
-  const products = await Product.find({ ...keyword });
+  const keyword = req.query.keyword
+    ? { name: { $regex: req.query.keyword, $options: "i" } }
+    : {};
+  const products = await Product.find({ ...keyword }).populate(
+    "category",
+    "name"
+  );
   res.json(products);
-
-
-  
 });
 
 const getProductById = asyncHandler(async (req, res) => {
@@ -25,35 +26,43 @@ const getProductById = asyncHandler(async (req, res) => {
   }
 });
 
-
 const getTopProducts = asyncHandler(async (req, res) => {
   console.log("Handling request for /api/products/top"); // Add this line for debugging
   const products = await Product.find({}).sort({ rating: -1 }).limit(3);
   res.status(200).json(products);
 });
 
-
 const createProduct = asyncHandler(async (req, res) => {
-  console.log("check");
+  const { name, price, description, image, brand, categoryId, countInStock } =
+    req.body;
+
   const product = new Product({
-    name: "Sample name",
-    price: 0,
+    name,
+    price,
     user: req.user._id,
-    image: "/images/sample.jpg",
-    brand: "Sample brand",
-    category: "Sample category",
-    countInStock: 0,
+    image,
+    brand,
+    category: categoryId,
+    countInStock,
     numReviews: 0,
-    description: "Sample description",
+    description,
   });
 
   const createdProduct = await product.save();
   res.status(201).json(createdProduct);
 });
 
-// @desc    Update a product
-// @route   PUT /api/products/:id
-// @access  Private/Admin
+const getProductsByCategory = asyncHandler(async (req, res) => {
+  const categoryId = req.params.id; // Use params instead of query for category ID
+
+  const query = categoryId ? { category: categoryId } : {};
+  const products = await Product.find(query);
+  res.json(products);
+});
+
+// @desc Update a product
+// @route PUT /api/products/:id
+// @access Private/Admin
 
 const updateProduct = asyncHandler(async (req, res) => {
   const { name, price, description, image, brand, category, countInStock } =
@@ -74,8 +83,15 @@ const updateProduct = asyncHandler(async (req, res) => {
     res.json(updatedProduct);
   } else {
     res.status(404);
-    throw new Error('Product not found');
+    throw new Error("Product not found");
   }
 });
 
-export { createProduct, getProductById, getProducts, updateProduct,getTopProducts, };
+export {
+  createProduct,
+  getProductById,
+  getProducts,
+  updateProduct,
+  getTopProducts,
+  getProductsByCategory,
+};

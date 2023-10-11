@@ -23,6 +23,7 @@ import OrderListPage from "./pages/admin/OrderListPage";
 import PaymentPage from "./pages/PaymentPage";
 import ProductListPage from "./pages/admin/ProductListPage";
 import ProductUpdatePage from "./pages/admin/ProductUpdatePage";
+import CreateProductPage from "./pages/admin/CreateProductPage";
 import "bootstrap/dist/css/bootstrap.css";
 import "./index.css";
 import UserEditPage from "./pages/admin/UserEditPage";
@@ -31,38 +32,39 @@ import UserListPage from "./pages/admin/UserListPage";
 import OrderPage from "./pages/OrderPage";
 import PlaceOrderPage from "./pages/PlaceOrderPage";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
-import InvalidTokenError from './components/InvalidTokenError';
+import InvalidTokenError from "./components/InvalidTokenError";
 import CategoryPage from "./pages/admin/CategoryPage";
+import ProductsByCategory from "./pages/ProductsByCategory";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element={<App />}>
-      <Route index={true} path='/' element={<HomePage />} />
-      <Route  path='/search/:keyword' element={<HomePage />} />
-      <Route path='/invalid-token' element={<InvalidTokenError />} />
+    <Route path="/" element={<App />}>
+      <Route index={true} path="/" element={<HomePage />} />
+      <Route path="/search/:keyword" element={<HomePage />} />
+      <Route path="/invalid-token" element={<InvalidTokenError />} />
 
-      <Route path='/product/:id' element={<ProductPage />} />
-      <Route path='/cart' element={<CartPage />} />
-      <Route path='/login' element={<LoginPage />} />
-      <Route path='/register' element={<RegisterPage />} />
-      <Route path='/aboutUs' element={<AboutUsPage />} />
-
-      <Route path='' element={<PrivateRoute />}>
-        <Route path='/shipping' element={<ShippingPage />} />
-        <Route path='payment' element={<PaymentPage />} />
-        <Route path='/profile' element={<ProfilePage />} />
-        <Route path='/placeOrder' element={<PlaceOrderPage />} />
-        <Route path='/order/:id' element={<OrderPage />} />
+      <Route path="/product/:id" element={<ProductPage />} />
+      <Route path="/cart" element={<CartPage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+      <Route path="/aboutUs" element={<AboutUsPage />} />
+      <Route path="/products/category/:id" element={<ProductsByCategory />} />
+      <Route path="" element={<PrivateRoute />}>
+        <Route path="/shipping" element={<ShippingPage />} />
+        <Route path="payment" element={<PaymentPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/placeOrder" element={<PlaceOrderPage />} />
+        <Route path="/order/:id" element={<OrderPage />} />
       </Route>
 
-      <Route path='' element={<AdminRoute />}>
-      <Route path='/admin/category/' element={<CategoryPage />} />
-        <Route path='/admin/orderlist/' element={<OrderListPage />} />
-        <Route path='/admin/productList/' element={<ProductListPage />} />
-        <Route path='/admin/product/:id/edit' element={<ProductUpdatePage />} />
-        <Route path='/admin/user/:id/edit' element={<UserEditPage />} />
-        <Route path='/admin/userlist/' element={<UserListPage />} />
-        
+      <Route path="" element={<AdminRoute />}>
+        <Route path="/admin/orderlist/" element={<OrderListPage />} />
+        <Route path="/admin/productList/" element={<ProductListPage />} />
+        <Route path="/admin/category/" element={<CategoryPage />} />
+        <Route path="/admin/product/create" element={<CreateProductPage />} />
+        <Route path="/admin/product/:id/edit" element={<ProductUpdatePage />} />
+        <Route path="/admin/user/:id/edit" element={<UserEditPage />} />
+        <Route path="/admin/userlist/" element={<UserListPage />} />
       </Route>
     </Route>
   )
@@ -81,7 +83,5 @@ root.render(
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+
 reportWebVitals();
