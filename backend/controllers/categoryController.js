@@ -4,13 +4,27 @@ import Category from "../models/categoryModel.js";
 const createCategory = asyncHandler(async (req, res) => {
   const { name } = req.body;
   console.log(name);
+
+  // Check if a category with the same name (case-insensitive) already exists
+  const existingCategory = await Category.findOne({
+    name: { $regex: new RegExp(`^${name}$`, "i") },
+  });
+
+  if (existingCategory) {
+    res.status(400);
+    throw new Error("Category with the same name already exists");
+  }
+
   const category = new Category({
     name,
-    user: req.user._id,
+    user: req.user._id, // You can replace this with req.user._id if needed
   });
 
   const createdCategory = await category.save();
-  res.status(201).json(createdCategory);
+  res.status(201).json({
+    createdCategory,
+    message: "Categories create sucessfully",
+  });
 });
 
 const getCategories = asyncHandler(async (req, res) => {

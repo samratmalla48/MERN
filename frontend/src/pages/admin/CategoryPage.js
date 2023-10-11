@@ -3,7 +3,7 @@ import { Form, Button, Table } from "react-bootstrap";
 import { FaTrash } from "react-icons/fa";
 import Loader from "../../components/Loader";
 import Message from "../../components/Message";
-import { useDispatch } from "react-redux";
+
 import {
   useCreateCategoryMutation,
   useGetCategoriesQuery,
@@ -13,8 +13,9 @@ import { toast } from "react-toastify";
 
 function CategoryPage({ onAddCategory }) {
   const [name, setCategoryName] = useState("");
+ 
 
-  const dispatch = useDispatch();
+
 
   const {
     data: categories,
@@ -23,26 +24,29 @@ function CategoryPage({ onAddCategory }) {
     error,
   } = useGetCategoriesQuery();
 
-  const [createCategory, { isLoading: loadingCreate }] =
+  const [createCategory] =
     useCreateCategoryMutation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("ter");
-
-    const res = await createCategory({ name }).unwrap();
-    console.log(res.message);
-    toast.success(res.message);
+    try {
+      const res = await createCategory({ name }).unwrap();
+      console.log(res.message);
+      toast.success(res.message);
+    } catch (err) {
+      toast.error(err?.data?.message || err.error);
+    }
   };
 
-  const [deleteCategory, { isLoading: loadingDelete }] =
+  const [deleteCategory] =
     useDeleteCategoryMutation();
 
   const deleteHandler = async (id) => {
     if (window.confirm("Are you sure")) {
       try {
         await deleteCategory(id);
-        toast.success("Deleted Successfully")
+        toast.success("Deleted Successfully");
         refetch();
       } catch (err) {
         toast.error(err?.data?.message || err.error);
@@ -54,28 +58,28 @@ function CategoryPage({ onAddCategory }) {
     <>
       <h1>Categories</h1>
       <Form onSubmit={handleSubmit}>
-        <Form.Group controlId='name'>
+        <Form.Group controlId="name">
           <Form.Label>Category Name</Form.Label>
           <Form.Control
-            type='text'
-            placeholder='Enter category name'
+            type="text"
+            placeholder="Enter category name"
             value={name}
             onChange={(e) => setCategoryName(e.target.value)}
             required
           />
         </Form.Group>
-        <Button variant='primary' type='submit'>
+        <Button variant="primary" type="submit">
           Add Category
         </Button>
       </Form>
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <Message variant='danger'>
+        <Message variant="danger">
           {error?.data?.message || error.error}
         </Message>
       ) : (
-        <Table striped bordered hover responsive className='table-sm'>
+        <Table striped bordered hover responsive className="table-sm">
           <thead>
             <tr>
               <th>ID</th>
@@ -90,8 +94,8 @@ function CategoryPage({ onAddCategory }) {
                 <td>{category.name}</td>
                 <td>
                   <Button
-                    variant='danger'
-                    className='btn-sm'
+                    variant="danger"
+                    className="btn-sm"
                     onClick={() => deleteHandler(category._id)}
                   >
                     <FaTrash style={{ color: "white" }} />

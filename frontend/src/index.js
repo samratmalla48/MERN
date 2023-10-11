@@ -4,7 +4,6 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
-  RouteProvider,
   RouterProvider,
 } from "react-router-dom";
 import { Provider } from "react-redux";
@@ -26,7 +25,6 @@ import ProductListPage from "./pages/admin/ProductListPage";
 import ProductUpdatePage from "./pages/admin/ProductUpdatePage";
 import "bootstrap/dist/css/bootstrap.css";
 import "./index.css";
-import UpdateProfilePage from "./pages/ProfilePage";
 import UserEditPage from "./pages/admin/UserEditPage";
 import AboutUsPage from "./pages/AboutUsPage";
 import UserListPage from "./pages/admin/UserListPage";
