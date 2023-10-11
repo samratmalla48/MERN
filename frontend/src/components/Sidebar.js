@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Offcanvas,ListGroup } from "react-bootstrap";
+import { Offcanvas, ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -21,22 +21,24 @@ const Sidebar = ({ isSidebarVisible, handleSidebarToggle }) => {
 
   return (
     <Offcanvas show={isSidebarVisible} onHide={handleSidebarToggle}>
-      <Offcanvas.Header closeButton>
-        <Offcanvas.Title>Categories</Offcanvas.Title>
-      </Offcanvas.Header>
-      <Offcanvas.Body>
-        <ListGroup>
-          {categories.map((category) => (
-            <Link
-              key={category._id}
-              to={`/products/category/${category._id}`}
-              onClick={handleSidebarToggle}
-            >
-              <ListGroup.Item action>{category.name}</ListGroup.Item>
-            </Link>
-          ))}
-        </ListGroup>
-      </Offcanvas.Body>
+      <div className="sidebar">
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Categories</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          <ListGroup>
+            {categories.map((category) => (
+              <Link
+                key={category._id}
+                to={`/products/category/${category._id}`}
+                onClick={handleSidebarToggle}
+              >
+                <ListGroup.Item action>{category.name}</ListGroup.Item>
+              </Link>
+            ))}
+          </ListGroup>
+        </Offcanvas.Body>
+      </div>
     </Offcanvas>
   );
 };

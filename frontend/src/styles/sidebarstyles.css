@@ -1,0 +1,24 @@
+/* Add this CSS in your project's stylesheet */
+.sidebar {
+  background-color: #fff; /* Background color for the sidebar */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Shadow to create depth */
+  padding: 20px; /* Padding inside the sidebar */
+
+  .offcanvas-header {
+    background-color: #f8f9fa; /* Header background color */
+  }
+
+  .offcanvas-title {
+    color: #343a40; /* Header title color */
+  }
+
+  .list-group-item {
+    background-color: transparent; /* List item background color */
+    color: #000; /* List item text color */
+    border: none; /* Remove list item borders */
+  }
+
+  .list-group-item:hover {
+    background-color: #e2e3e5; /* Background color on hover */
+  }
+}

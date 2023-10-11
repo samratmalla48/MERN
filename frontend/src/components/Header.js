@@ -1,16 +1,16 @@
-import React from 'react';
-import { Navbar, Nav, Container, Badge, NavDropdown } from 'react-bootstrap';
-import { FaShoppingCart, FaUser, FaBars, FaSearch } from 'react-icons/fa';
-import { LinkContainer } from 'react-router-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { useLogoutMutation } from '../slices/usersApiSlice';
-import { logout } from '../slices/authSlice';
-import SearchBox from './SearchBox';
-import { useState } from 'react';
-import Sidebar from './Sidebar';
-import logo from '../assets/logo_white.png';
-import pdf from '../assets/pc.pdf'
+import React from "react";
+import { Navbar, Nav, Container, Badge, NavDropdown } from "react-bootstrap";
+import { FaShoppingCart, FaUser, FaBars } from "react-icons/fa";
+import { LinkContainer } from "react-router-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useLogoutMutation } from "../slices/usersApiSlice";
+import { logout } from "../slices/authSlice";
+import SearchBox from "./SearchBox";
+import { useState } from "react";
+import Sidebar from "./Sidebar";
+import logo from "../assets/logo_white.png";
+import pdf from "../assets/pc.pdf";
 
 const Header = () => {
   const { cartItems } = useSelector((state) => state.cart);
@@ -23,7 +23,7 @@ const Header = () => {
     try {
       await logoutApiCall().unwrap();
       dispatch(logout());
-      navigate('/login');
+      navigate("/login");
     } catch (error) {
       console.log(error);
     }
@@ -74,13 +74,13 @@ const Header = () => {
                 <Nav.Link>Product Catalouge</Nav.Link>
               </LinkContainer> */}
               <a href={pdf} className="nav-link" download="Product Catalouge">
-              Product Catalouge
+                Product Catalouge
               </a>
               <LinkContainer to="/cart">
                 <Nav.Link>
                   <FaShoppingCart /> Cart
                   {cartItems.length > 0 && (
-                    <Badge pill bg="success" style={{ marginLeft: '5px' }}>
+                    <Badge pill bg="success" style={{ marginLeft: "5px" }}>
                       {cartItems.reduce((a, c) => a + c.qty, 0)}
                     </Badge>
                   )}

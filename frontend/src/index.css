@@ -63,7 +63,7 @@ main {
 }
 
 .navbar {
-  background-color: #076ae1;
+  background-color: #626569;
   /* color: #fff; */
 }
 
@@ -103,7 +103,7 @@ main {
 
 /* HomePage.css */
 .product-card {
-  border: 1px solid #ccc;
+  border: 1px solid #eaa4a4;
   border-radius: 8px;
   overflow: hidden;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
@@ -149,4 +149,15 @@ main {
 .product-card .btn-primary:hover {
   background-color: #076ae1;
   border-color: #076ae1;
+}
+.sidebar-item {
+  padding: 10px 20px;
+  font-size: 18px;
+  text-decoration: none;
+  color: #333; /* Change the color to your preference */
+  transition: background-color 0.2s;
+}
+
+.sidebar-item:hover {
+  background-color: #f0f0f0; /* Change the hover background color to your preference */
 }
