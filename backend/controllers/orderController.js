@@ -44,7 +44,9 @@ const addOrderItems = asyncHandler(async (req, res) => {
 
     const mailOptions = {
       from: "samratmalla48@gmail.com",
-      to: req.user.email, // Send the email to the user who placed the order
+      // to: req.user.email, // Send the email to the user who placed the order
+      to: [req.user.email, "thatsavideos@gmail.com"],
+
       subject: "Order Confirmation",
       html: `
 <html>
@@ -135,8 +137,8 @@ ${orderItems
   }
 });
 
-const getOrders = asyncHandler(async(req, res) => {
-  const orders = await Order.find({}).populate('user', 'id name');
+const getOrders = asyncHandler(async (req, res) => {
+  const orders = await Order.find({}).populate("user", "id name");
   res.json(orders);
 });
 
